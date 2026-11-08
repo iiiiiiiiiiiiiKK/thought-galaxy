@@ -279,7 +279,7 @@ npm run test:e2e              # --project=desktop
  12 passed  （core 7 个，interaction 5 个）
 
 npm run test:e2e              # --project=iphone
- 7 passed
+ 12 passed  （同一批用例，验证移动端布局、底部面板、缩放路径）
 
 npm run verify:prod           # 针对线上 GitHub Pages 地址
  10/10 验收项全部通过，控制台 0 报错
@@ -316,14 +316,14 @@ npm run verify:prod           # 针对线上 GitHub Pages 地址
 | 4 | 创建关联 | `interaction.spec: creates then deletes a relation` |
 | 5 | 删除关联 | 同一用例的后半段 |
 | 6 | 拖动星球 | 画布指针处理 + `x/y` 持久化 |
-| 7 | 画布缩放 | `interaction.spec: wheel zooms…`（断言 HUD 百分比） |
+| 7 | 画布缩放 | `interaction.spec: zooms the galaxy…`（断言 HUD 百分比；桌面用滚轮，移动端用 HUD 按钮） |
 | 8 | 搜索定位 | `core.spec: search filters the galaxy` |
 | 9 | 标签筛选 | `interaction.spec: tag filtering narrows…` |
 | 10 | 数据导入 | `interaction.spec: imports a JSON file…` |
 | 11 | 数据导出 | `core.spec: exports a JSON backup`（真实 download 事件） |
 | 12 | 刷新后持久化 | `core.spec: …persists it after reload` |
 | 13 | Demo 清理 | `core.spec: clears the demo galaxy without touching user data` |
-| 14 | 移动端交互 | iPhone 项目 7 个用例 + 390/393/320px 溢出检测 |
+| 14 | 移动端交互 | iPhone 项目全部 12 个用例 + 390/393/320px 溢出检测 |
 | 15 | 大量节点性能 | `scripts/check-performance.mjs`（1,200 与 3,000 颗） |
 
 已实现且被测试覆盖的异常路径：空星系（欢迎引导）、损坏的导入文件（明确报错且不写入）、重复 ID（重新生成）、自关联/重复/悬空关联（拒绝）、IndexedDB 不可用（常驻警告条，应用仍可在内存内运行）。

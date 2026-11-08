@@ -277,7 +277,7 @@ npm run test:e2e              # --project=desktop
  12 passed  (core: 7, interaction: 5)
 
 npm run test:e2e              # --project=iphone
- 7 passed
+ 12 passed  (same specs on the mobile layout: bottom sheets, pinch/zoom path)
 
 npm run verify:prod           # against the live GitHub Pages URL
  10/10 acceptance checks passed, 0 console errors
@@ -314,14 +314,14 @@ Coverage of the required checklist:
 | 4 | Create relation | `interaction.spec: creates then deletes a relation` |
 | 5 | Delete relation | same spec (delete half) |
 | 6 | Drag planet | canvas pointer handler + persisted `x/y` |
-| 7 | Zoom canvas | `interaction.spec: wheel zooms…` (HUD % assertion) |
+| 7 | Zoom canvas | `interaction.spec: zooms the galaxy…` (HUD % assertion; wheel on desktop, HUD button on mobile) |
 | 8 | Search → locate | `core.spec: search filters the galaxy` |
 | 9 | Tag filter | `interaction.spec: tag filtering narrows…` |
 | 10 | Import | `interaction.spec: imports a JSON file…` |
 | 11 | Export | `core.spec: exports a JSON backup` (real download event) |
 | 12 | Refresh persistence | `core.spec: …persists it after reload` |
 | 13 | Demo cleanup | `core.spec: clears the demo galaxy without touching user data` |
-| 14 | Mobile interaction | iPhone project (7 specs) + layout overflow check at 390/393/320 px |
+| 14 | Mobile interaction | iPhone project: all 12 specs + layout overflow check at 390 / 393 / 320 px |
 | 15 | Many nodes | `scripts/check-performance.mjs` (1,200 & 3,000 planets) |
 
 Error paths that are implemented **and** exercised: empty galaxy (welcome overlay), corrupted/unparsable import file (visible error, nothing written), duplicate IDs (regenerated), dangling self/duplicate edges (rejected), IndexedDB unavailable (persistent warning banner + app still runs in memory).
