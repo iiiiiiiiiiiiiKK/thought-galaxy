@@ -86,6 +86,13 @@ export const DEFAULT_VIEWPORT: Viewport = { x: 0, y: 0, zoom: 1 };
 
 let toastSeq = 0;
 
+/**
+ * The sidebar is a permanent column on large screens and a drawer below that.
+ * On phones it must start closed — an auto-opened drawer would cover the header
+ * controls and swallow the first tap.
+ */
+const initialSidebarOpen = typeof window === 'undefined' ? true : window.innerWidth >= 1024;
+
 export const useUIStore = create<UIState>((set, get) => ({
   viewport: DEFAULT_VIEWPORT,
   selectedNodeId: null,
@@ -98,7 +105,7 @@ export const useUIStore = create<UIState>((set, get) => ({
   collapsedClusters: [],
   filters: EMPTY_FILTERS,
   toasts: [],
-  sidebarOpen: true,
+  sidebarOpen: initialSidebarOpen,
   mobileSheetOpen: false,
   pointerMode: 'idle',
 

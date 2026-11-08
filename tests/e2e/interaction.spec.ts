@@ -13,13 +13,21 @@ async function hudZoom(page: Page): Promise<number> {
 }
 
 test.describe('canvas interaction', () => {
-  test('wheel zooms the galaxy and fit-all restores framing', async ({ page }) => {
+  test('zooms the galaxy and fit-all restores framing', async ({ page }, testInfo) => {
     await openApp(page);
     const before = await hudZoom(page);
-    const box = await page.getByTestId('galaxy-canvas').boundingBox();
-    expect(box).not.toBeNull();
-    await page.mouse.move(box!.x + box!.width / 2, box!.y + box!.height / 2);
-    await page.mouse.wheel(0, -600);
+
+    if (testInfo.project.name === 'iphone') {
+      // Mobile WebKit cannot deliver mouse wheel events, so exercise the same
+      // zoom code path through the HUD control instead.
+      await page.getByTestId('galaxy-hud').getByLabel('放大').click();
+    } else {
+      const box = await page.getByTestId('galaxy-canvas').boundingBox();
+      expect(box).not.toBeNull();
+      await page.mouse.move(box!.x + box!.width / 2, box!.y + box!.height / 2);
+      await page.mouse.wheel(0, -600);
+    }
+
     await page.waitForTimeout(400);
     const zoomed = await hudZoom(page);
     expect(zoomed).toBeGreaterThan(before);

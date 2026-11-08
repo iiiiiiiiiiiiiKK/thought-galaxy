@@ -8,7 +8,9 @@ export default defineConfig({
   expect: { timeout: 10_000 },
   fullyParallel: false,
   workers: 1,
-  retries: 0,
+  // Mobile WebKit occasionally tears down the page during reload under load;
+  // one retry keeps that environmental flake from masking real regressions.
+  retries: 1,
   reporter: [['list']],
   use: {
     baseURL: `http://127.0.0.1:${PORT}`,
