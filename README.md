@@ -230,12 +230,18 @@ npm run dev          # http://localhost:5183
 ### All scripts
 
 ```bash
-npm run dev         # dev server
-npm run build       # typecheck + production build -> dist/
-npm run preview     # serve the production build
-npm run typecheck   # tsc --noEmit
-npm test            # 38 unit tests (Vitest + fake IndexedDB)
-npm run test:e2e    # 12 Playwright E2E specs, desktop + iPhone
+npm run dev          # dev server
+npm run build        # typecheck + production build -> dist/
+npm run preview      # serve the production build
+npm run typecheck    # tsc --noEmit
+npm test             # 38 unit tests (Vitest + fake IndexedDB)
+npm run test:e2e     # 12 Playwright E2E specs, desktop + iPhone
+
+# Maintenance / verification helpers (need a running preview server)
+npm run screenshots  # regenerate docs/screenshots/**
+npm run check:layout # assert no horizontal overflow at 390 / 393 / 320 px
+npm run check:perf   # frame-rate benchmark with N synthetic planets
+npm run verify:prod  # end-to-end acceptance run against the deployed URL
 ```
 
 ### Optional environment variables
@@ -272,6 +278,30 @@ npm run test:e2e              # --project=desktop
 
 npm run test:e2e              # --project=iphone
  7 passed
+
+npm run verify:prod           # against the live GitHub Pages URL
+ 10/10 acceptance checks passed, 0 console errors
+```
+
+Production acceptance output (trimmed):
+
+```json
+{
+  "url": "https://iiiiiiiiiiiiiKK.github.io/thought-galaxy/",
+  "results": [
+    { "check": "canvas rendered", "ok": true },
+    { "check": "X author link", "ok": true },
+    { "check": "demo galaxy seeded", "ok": true },
+    { "check": "create planet", "ok": true },
+    { "check": "detail shows title", "ok": true },
+    { "check": "persisted after reload", "ok": true },
+    { "check": "tags persisted", "ok": true },
+    { "check": "export JSON download", "ok": true, "detail": "thought-galaxy-20261108.json" },
+    { "check": "mobile: no horizontal overflow", "ok": true, "detail": "390<=390" },
+    { "check": "mobile: search sheet opens", "ok": true }
+  ],
+  "consoleErrors": []
+}
 ```
 
 Coverage of the required checklist:

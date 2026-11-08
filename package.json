@@ -16,7 +16,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "deploy:pages": "node scripts/deploy-pages.mjs"
+    "verify:prod": "node scripts/verify-production.mjs",
+    "screenshots": "node scripts/capture-screenshots.mjs",
+    "check:layout": "node scripts/check-layout.mjs",
+    "check:perf": "node scripts/check-performance.mjs"
   },
   "dependencies": {
     "dexie": "^4.2.0",

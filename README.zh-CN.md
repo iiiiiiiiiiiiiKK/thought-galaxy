@@ -232,12 +232,18 @@ npm run dev          # http://localhost:5183
 ### 全部命令
 
 ```bash
-npm run dev         # 开发服务器
-npm run build       # 类型检查 + 生产构建 -> dist/
-npm run preview     # 预览生产构建
-npm run typecheck   # tsc --noEmit
-npm test            # 38 个单元测试（Vitest + 假 IndexedDB）
-npm run test:e2e    # 12 个 Playwright E2E，覆盖桌面与 iPhone
+npm run dev          # 开发服务器
+npm run build        # 类型检查 + 生产构建 -> dist/
+npm run preview      # 预览生产构建
+npm run typecheck    # tsc --noEmit
+npm test             # 38 个单元测试（Vitest + 假 IndexedDB）
+npm run test:e2e     # 12 个 Playwright E2E，覆盖桌面与 iPhone
+
+# 维护 / 验收脚本（需要本地预览服务器在跑）
+npm run screenshots  # 重新生成 docs/screenshots/**
+npm run check:layout # 断言 390 / 393 / 320px 下无横向溢出
+npm run check:perf   # 用 N 颗合成星球做帧率基准
+npm run verify:prod  # 对线上地址执行端到端验收
 ```
 
 ### 可选环境变量
@@ -274,6 +280,30 @@ npm run test:e2e              # --project=desktop
 
 npm run test:e2e              # --project=iphone
  7 passed
+
+npm run verify:prod           # 针对线上 GitHub Pages 地址
+ 10/10 验收项全部通过，控制台 0 报错
+```
+
+线上验收真实输出（截取）：
+
+```json
+{
+  "url": "https://iiiiiiiiiiiiiKK.github.io/thought-galaxy/",
+  "results": [
+    { "check": "canvas rendered", "ok": true },
+    { "check": "X author link", "ok": true },
+    { "check": "demo galaxy seeded", "ok": true },
+    { "check": "create planet", "ok": true },
+    { "check": "detail shows title", "ok": true },
+    { "check": "persisted after reload", "ok": true },
+    { "check": "tags persisted", "ok": true },
+    { "check": "export JSON download", "ok": true, "detail": "thought-galaxy-20261108.json" },
+    { "check": "mobile: no horizontal overflow", "ok": true, "detail": "390<=390" },
+    { "check": "mobile: search sheet opens", "ok": true }
+  ],
+  "consoleErrors": []
+}
 ```
 
 需求清单逐项验证：
